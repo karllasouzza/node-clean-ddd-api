@@ -1,6 +1,6 @@
 import { UniqueEntityId } from "@/core/entities/unique-entity-id.js";
 import { Question } from "../../enterprise/entities/question.js";
-import type { QuestionsRepository } from "../repositories/answers-questions.js";
+import type { QuestionsRepository } from "../repositories/questions-repository.js";
 
 interface GetQuestionBySlugUseCaseRequest {
   slug: string;

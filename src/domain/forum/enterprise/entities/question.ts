@@ -4,7 +4,7 @@ import type { UniqueEntityId } from "@/core/entities/unique-entity-id.js";
 import type { Optional } from "@/core/types/optional.js";
 import { Slug } from "./values-objects/slug.js";
 
-interface QuestionProps {
+export interface QuestionProps {
   authorId: UniqueEntityId;
   bestAnswerId?: UniqueEntityId | undefined;
   title: string;
