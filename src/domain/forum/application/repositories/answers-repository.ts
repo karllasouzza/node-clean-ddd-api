@@ -1,4 +1,4 @@
-import { Answer } from "../entities/answer.js";
+import type { Answer } from "../../enterprise/entities/answer.js";
 
 export interface AnswersRepository {
   create(answer: Answer): void;
