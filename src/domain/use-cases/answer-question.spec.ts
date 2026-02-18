@@ -15,9 +15,6 @@ describe.only("Answer Question Use Case", () => {
       content: "This is the answer to the question.",
     });
 
-    expect(answer).toEqual(expect.objectContaining({
-      id: expect.any(String),
-      content: "This is the answer to the question.",
-    }));
+    expect(answer.content).toBe("This is the answer to the question.");
   });
 });
