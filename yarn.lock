@@ -263,6 +263,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@faker-js/faker@npm:^10.3.0":
+  version: 10.3.0
+  resolution: "@faker-js/faker@npm:10.3.0"
+  checksum: 10c0/5a4688f8a040366bda83e6c7f144f9db9bef1d44f7c5b43fcee15c8def07463fcdcb572458b0d14072aca58c14321f1195e11d8664ce094266e29eb4d2a70ac4
+  languageName: node
+  linkType: hard
+
 "@humanfs/core@npm:^0.19.1":
   version: 0.19.1
   resolution: "@humanfs/core@npm:0.19.1"
@@ -1656,6 +1663,7 @@ __metadata:
   resolution: "node-ddd-api@workspace:."
   dependencies:
     "@eslint/js": "npm:^10.0.1"
+    "@faker-js/faker": "npm:^10.3.0"
     "@types/node": "npm:^25.2.3"
     "@vitest/eslint-plugin": "npm:^1.6.9"
     dayjs: "npm:^1.11.19"
