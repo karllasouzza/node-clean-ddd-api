@@ -48,6 +48,9 @@ export class Answer extends Entity<AnswerProps> {
     props: Optional<AnswerProps, "createdAt">,
     id?: UniqueEntityId,
   ) {
-    return new Answer({ ...props, createdAt: new Date() }, id);
+    return new Answer(
+      { ...props, createdAt: props.createdAt ?? new Date() },
+      id,
+    );
   }
 }
