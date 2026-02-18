@@ -1,11 +1,10 @@
-import { describe, expect, it, vi } from "vitest";
 import { AnswerQuestionUseCase } from "./answer-question.js";
 
 const fakeAnswersRepository = {
   create: vi.fn(),
 };
 
-describe.only("Answer Question Use Case", () => {
+describe("Answer Question Use Case", () => {
   it("should create an answer", async () => {
     const answerQuestion = new AnswerQuestionUseCase(fakeAnswersRepository);
 

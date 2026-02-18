@@ -1,4 +1,3 @@
-import { describe, it } from "vitest";
 import { Slug } from "./slug.js";
 
 describe("Slug Value Object", () => {
