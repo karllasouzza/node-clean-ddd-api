@@ -26,14 +26,17 @@ describe("Comment On Question Use Case", () => {
 
     await inMemoryQuestionsRepository.create(newQuestion);
 
-    await sut.execute({
+    const result = await sut.execute({
       questionId: newQuestion.id.toString(),
       authorId: newQuestion.authorId.toString(),
       content: "This is a comment",
     });
 
-    expect(inMemoryQuestionCommentsRepository?.items[0]?.content).toEqual(
-      "This is a comment",
-    );
+    expect(result.isRight()).toBe(true);
+    if (result.isRight()) {
+      expect(inMemoryQuestionCommentsRepository?.items[0]?.content).toEqual(
+        "This is a comment",
+      );
+    }
   });
 });

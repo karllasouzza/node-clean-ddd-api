@@ -2,6 +2,7 @@ import { InMemoryQuestionsRepository } from "test/repositories/in-memory-questio
 import { makeQuestion } from "test/factories/make-question.js";
 import { DeleteQuestionUseCase } from "./delete-question.js";
 import { UniqueEntityId } from "@/core/entities/unique-entity-id.js";
+import { NotAllowedError } from "./errors/not-allowed-error.js";
 
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository;
 // SUT = System Under Test
@@ -21,10 +22,12 @@ describe("Delete Question Use Case", () => {
     );
     await inMemoryQuestionsRepository.create(newQuestion);
 
-    await sut.execute({
+    const result = await sut.execute({
       authorId: "author-1",
       questionId: "question-1",
     });
+
+    expect(result.isRight()).toBe(true);
 
     const deletedQuestion =
       await inMemoryQuestionsRepository.findById("question-1");
@@ -40,11 +43,14 @@ describe("Delete Question Use Case", () => {
     );
     await inMemoryQuestionsRepository.create(newQuestion);
 
-    await expect(
-      sut.execute({
-        authorId: "author-2",
-        questionId: "question-1",
-      }),
-    ).rejects.toBeInstanceOf(Error);
+    const result = await sut.execute({
+      authorId: "author-2",
+      questionId: "question-1",
+    });
+
+    expect(result.isLeft()).toBe(true);
+    if (result.isLeft()) {
+      expect(result.value).toBeInstanceOf(NotAllowedError);
+    }
   });
 });

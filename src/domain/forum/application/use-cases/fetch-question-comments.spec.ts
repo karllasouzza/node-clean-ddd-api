@@ -25,12 +25,16 @@ describe("Fetch Questions Comments Use Case", () => {
       makeQuestionComment({ questionId: new UniqueEntityId("question-1") }),
     );
 
-    const { questionsComments } = await sut.execute({
+    const result = await sut.execute({
       questionId: "question-1",
       page: 1,
     });
 
-    expect(questionsComments).toHaveLength(3);
+    expect(result.isRight()).toBe(true);
+    if (result.isRight()) {
+      const { questionsComments } = result.value;
+      expect(questionsComments).toHaveLength(3);
+    }
   });
 
   it("should be able to fetch paginated question comments", async () => {
@@ -40,11 +44,15 @@ describe("Fetch Questions Comments Use Case", () => {
       );
     }
 
-    const { questionsComments } = await sut.execute({
+    const result = await sut.execute({
       questionId: "question-1",
       page: 2,
     });
 
-    expect(questionsComments).toHaveLength(2);
+    expect(result.isRight()).toBe(true);
+    if (result.isRight()) {
+      const { questionsComments } = result.value;
+      expect(questionsComments).toHaveLength(2);
+    }
   });
 });

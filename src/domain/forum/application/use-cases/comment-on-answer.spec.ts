@@ -25,14 +25,17 @@ describe("Comment On Answer Use Case", () => {
 
     await inMemoryAnswersRepository.create(newAnswer);
 
-    await sut.execute({
+    const result = await sut.execute({
       answerId: newAnswer.id.toString(),
       authorId: newAnswer.authorId.toString(),
       content: "This is a comment",
     });
 
-    expect(inMemoryAnswerCommentsRepository?.items[0]?.content).toEqual(
-      "This is a comment",
-    );
+    expect(result.isRight()).toBe(true);
+    if (result.isRight()) {
+      expect(inMemoryAnswerCommentsRepository?.items[0]?.content).toEqual(
+        "This is a comment",
+      );
+    }
   });
 });

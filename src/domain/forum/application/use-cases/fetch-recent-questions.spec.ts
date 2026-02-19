@@ -30,21 +30,25 @@ describe("Fetch Recent Questions Use Case", () => {
       }),
     );
 
-    const { questions } = await sut.execute({
+    const result = await sut.execute({
       page: 1,
     });
 
-    expect(questions).toEqual([
-      expect.objectContaining({
-        createdAt: new Date(2024, 1, 18),
-      }),
-      expect.objectContaining({
-        createdAt: new Date(2024, 1, 11),
-      }),
-      expect.objectContaining({
-        createdAt: new Date(2024, 1, 10),
-      }),
-    ]);
+    expect(result.isRight()).toBe(true);
+    if (result.isRight()) {
+      const { questions } = result.value;
+      expect(questions).toEqual([
+        expect.objectContaining({
+          createdAt: new Date(2024, 1, 18),
+        }),
+        expect.objectContaining({
+          createdAt: new Date(2024, 1, 11),
+        }),
+        expect.objectContaining({
+          createdAt: new Date(2024, 1, 10),
+        }),
+      ]);
+    }
   });
 
   it("should be able to fetch paginated recent questions", async () => {
@@ -52,10 +56,14 @@ describe("Fetch Recent Questions Use Case", () => {
       await inMemoryQuestionsRepository.create(makeQuestion({}));
     }
 
-    const { questions } = await sut.execute({
+    const result = await sut.execute({
       page: 2,
     });
 
-    expect(questions).toHaveLength(2);
+    expect(result.isRight()).toBe(true);
+    if (result.isRight()) {
+      const { questions } = result.value;
+      expect(questions).toHaveLength(2);
+    }
   });
 });

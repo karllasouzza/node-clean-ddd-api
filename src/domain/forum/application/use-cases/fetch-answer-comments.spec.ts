@@ -9,8 +9,7 @@ let sut: FetchAnswerCommentsUseCase;
 
 describe("Fetch Answers Comments Use Case", () => {
   beforeEach(() => {
-    inMemoryAnswerCommentsRepository =
-      new InMemoryAnswerCommentsRepository();
+    inMemoryAnswerCommentsRepository = new InMemoryAnswerCommentsRepository();
     sut = new FetchAnswerCommentsUseCase(inMemoryAnswerCommentsRepository);
   });
   it("should be able to fetch comments", async () => {
@@ -25,12 +24,16 @@ describe("Fetch Answers Comments Use Case", () => {
       makeAnswerComment({ answerId: new UniqueEntityId("answer-1") }),
     );
 
-    const { answersComments } = await sut.execute({
+    const result = await sut.execute({
       answerId: "answer-1",
       page: 1,
     });
 
-    expect(answersComments).toHaveLength(3);
+    expect(result.isRight()).toBe(true);
+    if (result.isRight()) {
+      const { answersComments } = result.value;
+      expect(answersComments).toHaveLength(3);
+    }
   });
 
   it("should be able to fetch paginated answer comments", async () => {
@@ -40,11 +43,15 @@ describe("Fetch Answers Comments Use Case", () => {
       );
     }
 
-    const { answersComments } = await sut.execute({
+    const result = await sut.execute({
       answerId: "answer-1",
       page: 2,
     });
 
-    expect(answersComments).toHaveLength(2);
+    expect(result.isRight()).toBe(true);
+    if (result.isRight()) {
+      const { answersComments } = result.value;
+      expect(answersComments).toHaveLength(2);
+    }
   });
 });
